@@ -10,5 +10,11 @@ export default class ConnectionsController {
     return resp.status(201).send();
   }
 
-  async index(req: Request, resp: Response) {}
+  async index(req: Request, resp: Response) {
+    const totalConnections = await db("connections").count("* as total");
+
+    const { total } = totalConnections[0];
+
+    return resp.json({ total });
+  }
 }
